@@ -9,6 +9,7 @@ import com.learn.gulimall.product.dao.AttrGroupDao;
 import com.learn.gulimall.product.entity.AttrGroupEntity;
 import com.learn.gulimall.product.service.AttrGroupService;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.Map;
 
@@ -23,6 +24,27 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
                 new QueryWrapper<AttrGroupEntity>()
         );
 
+        return new PageUtils(page);
+    }
+
+    @Override
+    public PageUtils queryPage(Map<String, Object> params, Long categoryId) {
+        if (categoryId == 0) {
+            IPage<AttrGroupEntity> page = this.page(new Query<AttrGroupEntity>().getPage(params), new QueryWrapper<>());
+            return new PageUtils(page);
+        }
+
+
+        String key = (String) params.get("key");
+        //selcet * from pms_attr_group where  catelog_id=? and(attr_group_id = key or attr_group_name like  )
+        QueryWrapper<AttrGroupEntity> wrapper = new QueryWrapper<AttrGroupEntity>().eq("catelog_id", categoryId);
+        if (!StringUtils.isEmpty(key)) {
+            wrapper.and(obj -> {
+                obj.eq("attr_group_id", key).or().like("attr_group_name", key);
+            });
+        }
+
+        IPage<AttrGroupEntity> page = this.page(new Query<AttrGroupEntity>().getPage(params), wrapper);
         return new PageUtils(page);
     }
 

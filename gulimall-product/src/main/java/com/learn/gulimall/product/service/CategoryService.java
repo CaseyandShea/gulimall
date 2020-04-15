@@ -22,8 +22,17 @@ public interface CategoryService extends IService<CategoryEntity> {
 
     /**
      * 自定义批量删除菜单功能
+     *
      * @param catIds
      */
     void removeMenuByIds(List<Long> catIds);
+
+    Long[] findCatelogPath(Long catelogId);
+
+    /**
+     * 极联更新其他数据
+     * @param category
+     */
+    void updateCascade(CategoryEntity category);
 }
 

@@ -5,6 +5,7 @@ import com.learn.gulimall.common.utils.R;
 import com.learn.gulimall.common.valid.AddGroup;
 import com.learn.gulimall.common.valid.UpdateGroup;
 import com.learn.gulimall.product.entity.BrandEntity;
+import com.learn.gulimall.product.entity.CategoryBrandRelationEntity;
 import com.learn.gulimall.product.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -33,6 +35,7 @@ public class BrandController {
     @Autowired
     private BrandService brandService;
 
+
     /**
      * 列表
      */
@@ -43,6 +46,7 @@ public class BrandController {
 
         return R.ok().put("page", page);
     }
+
 
 
     /**
@@ -83,7 +87,7 @@ public class BrandController {
     @PostMapping("/update")
     // @RequiresPermissions("product:brand:update")
     public R update(@Validated(value = {UpdateGroup.class}) @RequestBody BrandEntity brand) {
-        brandService.updateById(brand);
+        brandService.updateDetail(brand);
 
         return R.ok();
     }
