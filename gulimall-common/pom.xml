@@ -105,6 +105,13 @@
             <scope>compile</scope>
         </dependency>
 
+        <!-- JSR03 自定义注解相关依赖 -->
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>2.0.1.Final</version>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>
