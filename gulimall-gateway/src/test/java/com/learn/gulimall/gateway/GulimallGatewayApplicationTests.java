@@ -1,4 +1,4 @@
-package com.learn.gulimall.gulimallgateway;
+package com.learn.gulimall.gateway;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

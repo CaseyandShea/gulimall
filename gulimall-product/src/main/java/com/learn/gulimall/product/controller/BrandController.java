@@ -41,7 +41,7 @@ public class BrandController {
     /**
      * 信息
      */
-    @RequestMapping("/info/{brandId}")
+    @GetMapping("/info/{brandId}")
     // @RequiresPermissions("product:brand:info")
     public R info(@PathVariable("brandId") Long brandId) {
         BrandEntity brand = brandService.getById(brandId);
@@ -52,7 +52,7 @@ public class BrandController {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping("/save")
     // @RequiresPermissions("product:brand:save")
     public R save(@RequestBody BrandEntity brand) {
         brandService.save(brand);
@@ -63,10 +63,22 @@ public class BrandController {
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @PostMapping("/update")
     // @RequiresPermissions("product:brand:update")
     public R update(@RequestBody BrandEntity brand) {
         brandService.updateById(brand);
+
+        return R.ok();
+    }
+
+
+    /**
+     * 修改
+     */
+    @PostMapping("/update/list")
+    // @RequiresPermissions("product:brand:update")
+    public R updateBatch(@RequestBody BrandEntity[] brand) {
+        brandService.updateBatchById(Arrays.asList(brand));
 
         return R.ok();
     }
