@@ -17,7 +17,14 @@ spring:
           predicates:
             - Path=/api/product/**
           filters:
-            - RewritePath=/api/(?<segment>.*),/$\{segment}
+            - RewritePath=/api/product/(?<segment>.*),/$\{segment}
+
+        - id: third_party_route
+          uri: lb://gulimall-third-party
+          predicates:
+            - Path=/api/thirdparty/**
+          filters:
+            - RewritePath=/api/thirdparty/(?<segment>.*),/$\{segment}
 
         - id: renren
           uri: lb://renren-fast
