@@ -1,5 +1,6 @@
 package com.learn.gulimall.coupon.controller;
 
+import com.learn.gulimall.common.to.SkuReductionTo;
 import com.learn.gulimall.common.utils.PageUtils;
 import com.learn.gulimall.common.utils.R;
 import com.learn.gulimall.coupon.entity.SkuFullReductionEntity;
@@ -23,6 +24,14 @@ import java.util.Map;
 public class SkuFullReductionController {
     @Autowired
     private SkuFullReductionService skuFullReductionService;
+
+
+    @PostMapping("/saveinfo")
+    public R saveSkuReduction(@RequestBody SkuReductionTo skuReductionTo) {
+        skuFullReductionService.saveSkuReduction(skuReductionTo);
+        return R.ok();
+
+    }
 
     /**
      * 列表

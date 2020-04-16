@@ -9,12 +9,15 @@ import com.learn.gulimall.product.service.AttrGroupService;
 import com.learn.gulimall.product.service.AttrService;
 import com.learn.gulimall.product.service.CategoryService;
 import com.learn.gulimall.product.vo.AttrGroupRelationVo;
+import com.learn.gulimall.product.vo.AttrGroupWithAttrVo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
 
@@ -41,6 +44,26 @@ public class AttrGroupController {
 
     @Autowired
     AttrAttrgroupRelationService relationService;
+
+    /**
+     * 获取当前分类下的所有属性分组
+     */
+    @GetMapping("/{catelogId}/withattr")
+    public R getAttrGroupWithAttrs(@PathVariable(value = "catelogId", required = true) Long catelogId) {
+        //1.查出当前分类下的所有属性分组
+        List<AttrGroupEntity> attrGroupEntities = attrGroupService.getAttrGroupByCatelogId(catelogId);
+
+        //2。查出每个属性分组的所有属性
+        List<AttrGroupWithAttrVo> attrGroupWithAttrVos = attrGroupEntities.stream().map(attrGroupEntity -> {
+            AttrGroupWithAttrVo groupRelationVo = new AttrGroupWithAttrVo();
+            BeanUtils.copyProperties(attrGroupEntity, groupRelationVo);
+            List<AttrEntity> attrEntities = attrService.getRelationAttr(attrGroupEntity.getAttrGroupId());
+            groupRelationVo.setAttrs(attrEntities);
+            return groupRelationVo;
+        }).collect(Collectors.toList());
+
+        return R.ok().put("data", attrGroupWithAttrVos);
+    }
 
     /**
      * 列表

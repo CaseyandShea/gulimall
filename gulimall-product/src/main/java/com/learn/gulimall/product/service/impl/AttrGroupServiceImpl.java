@@ -11,6 +11,7 @@ import com.learn.gulimall.product.service.AttrGroupService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -47,6 +48,14 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
 
         IPage<AttrGroupEntity> page = this.page(new Query<AttrGroupEntity>().getPage(params), wrapper);
         return new PageUtils(page);
+    }
+
+    @Override
+    public List<AttrGroupEntity> getAttrGroupByCatelogId(Long catelogId) {
+        List<AttrGroupEntity> attrGroupEntities = this.list(
+                new QueryWrapper<AttrGroupEntity>().eq("catelog_id", catelogId)
+        );
+        return attrGroupEntities;
     }
 
 }

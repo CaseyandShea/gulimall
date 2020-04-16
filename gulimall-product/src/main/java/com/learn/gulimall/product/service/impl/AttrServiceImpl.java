@@ -195,6 +195,8 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
     }
 
     /**
+     * 根据分组信息获取所有的Attr（属性信息）
+     *
      * @param attrgroupId
      * @return
      */
@@ -273,5 +275,6 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
 
         return new PageUtils(page);
     }
+
 
 }

@@ -3,14 +3,17 @@ package com.learn.gulimall.product.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.learn.gulimall.common.utils.PageUtils;
 import com.learn.gulimall.common.utils.R;
+import com.learn.gulimall.product.entity.BrandEntity;
 import com.learn.gulimall.product.entity.CategoryBrandRelationEntity;
 import com.learn.gulimall.product.service.CategoryBrandRelationService;
+import com.learn.gulimall.product.vo.BrandVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
 
@@ -28,6 +31,22 @@ public class CategoryBrandRelationController {
     @Autowired
     private CategoryBrandRelationService categoryBrandRelationService;
 
+    /**
+     *  1.contrller 处理请求  接受和校验数据
+     *  2.service 接受controller传来的数据，进行业务处理
+     *  3。Controller 接受Service处理完的数据，封装成只页面指定的VO数据
+     */
+    @GetMapping("/brand/list")
+    public R relationBrandsList(@RequestParam(value = "catId", required = true) Long catId) {
+        List<BrandEntity> brandEntities = categoryBrandRelationService.getBrandsByCatId(catId);
+        List<BrandVo> brandVos = brandEntities.stream().map(brandEntity -> {
+            BrandVo brandVo = new BrandVo();
+            brandVo.setBrandId(brandEntity.getBrandId());
+            brandVo.setBrandName(brandEntity.getName());
+            return brandVo;
+        }).collect(Collectors.toList());
+        return R.ok().put("data", brandVos);
+    }
 
     /**
      * 获取当前品牌关联的所有分类

@@ -9,9 +9,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @MapperScan("com.learn.gulimall.product.dao")
 @SpringBootApplication
-@EnableFeignClients
 @EnableDiscoveryClient
 @EnableSwagger2
+@EnableFeignClients(basePackages = {"com.learn.gulimall"})
 public class GulimallProductApplication {
 
     public static void main(String[] args) {
