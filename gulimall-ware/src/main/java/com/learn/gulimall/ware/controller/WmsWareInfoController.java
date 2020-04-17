@@ -19,7 +19,7 @@ import java.util.Map;
  * @date 2020-04-13 14:33:02
  */
 @RestController
-@RequestMapping("ware/wmswareinfo")
+@RequestMapping("ware/wareinfo")
 public class WmsWareInfoController {
     @Autowired
     private WmsWareInfoService wmsWareInfoService;

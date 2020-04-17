@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.learn.gulimall.common.utils.PageUtils;
 import com.learn.gulimall.ware.entity.WmsPurchaseDetailEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,5 +15,7 @@ import java.util.Map;
 public interface WmsPurchaseDetailService extends IService<WmsPurchaseDetailEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    List<WmsPurchaseDetailEntity> listDetailByPurchaseId(Long id);
 }
 

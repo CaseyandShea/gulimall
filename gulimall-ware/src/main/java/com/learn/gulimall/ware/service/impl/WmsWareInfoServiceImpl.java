@@ -9,6 +9,7 @@ import com.learn.gulimall.ware.dao.WmsWareInfoDao;
 import com.learn.gulimall.ware.entity.WmsWareInfoEntity;
 import com.learn.gulimall.ware.service.WmsWareInfoService;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.Map;
 
@@ -18,9 +19,18 @@ public class WmsWareInfoServiceImpl extends ServiceImpl<WmsWareInfoDao, WmsWareI
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
+        QueryWrapper<WmsWareInfoEntity> queryWrapper = new QueryWrapper<>();
+        String key = params.get("key").toString();
+        if (!StringUtils.isEmpty(key)) {
+            queryWrapper.eq("id", key)
+                    .or().like("name", key)
+                    .or().like("address", key)
+                    .or().like("areacode", key);
+
+        }
         IPage<WmsWareInfoEntity> page = this.page(
                 new Query<WmsWareInfoEntity>().getPage(params),
-                new QueryWrapper<WmsWareInfoEntity>()
+                queryWrapper
         );
 
         return new PageUtils(page);

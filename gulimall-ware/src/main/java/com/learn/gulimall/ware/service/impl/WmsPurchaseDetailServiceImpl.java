@@ -10,6 +10,7 @@ import com.learn.gulimall.ware.entity.WmsPurchaseDetailEntity;
 import com.learn.gulimall.ware.service.WmsPurchaseDetailService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -24,6 +25,13 @@ public class WmsPurchaseDetailServiceImpl extends ServiceImpl<WmsPurchaseDetailD
         );
 
         return new PageUtils(page);
+    }
+
+    @Override
+    public List<WmsPurchaseDetailEntity> listDetailByPurchaseId(Long id) {
+
+
+        return null;
     }
 
 }
