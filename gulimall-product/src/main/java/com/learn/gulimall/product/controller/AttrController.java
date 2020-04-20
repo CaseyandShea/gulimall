@@ -3,7 +3,9 @@ package com.learn.gulimall.product.controller;
 import com.learn.gulimall.common.utils.PageUtils;
 import com.learn.gulimall.common.utils.R;
 import com.learn.gulimall.product.entity.AttrEntity;
+import com.learn.gulimall.product.entity.ProductAttrValueEntity;
 import com.learn.gulimall.product.service.AttrService;
+import com.learn.gulimall.product.service.ProductAttrValueService;
 import com.learn.gulimall.product.vo.AttrGroupRelationVo;
 import com.learn.gulimall.product.vo.AttrRespVo;
 import com.learn.gulimall.product.vo.AttrVo;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -28,6 +31,16 @@ import java.util.Map;
 public class AttrController {
     @Autowired
     private AttrService attrService;
+
+
+    @Autowired
+    ProductAttrValueService productAttrValueService;
+
+    @GetMapping("/base/listforspu/{spuId}")
+    public R baseAttrListForSpu(@PathVariable("spuId") Long spuId) {
+        List<ProductAttrValueEntity> datas = productAttrValueService.baseAttrListForSpu(spuId);
+        return R.ok();
+    }
 
 
     @GetMapping("/ {type}/list/{catlogId}")
@@ -85,6 +98,15 @@ public class AttrController {
         return R.ok();
     }
 
+    @PostMapping("/update/{spuId}")
+    // @RequiresPermissions("product:attr:update")
+    public R updateSpuAttr(@PathVariable("spuId") Long spuId,
+                           @RequestBody List<ProductAttrValueEntity> attrValueEntities) {
+        productAttrValueService.updateProductAttr(spuId,attrValueEntities);
+
+        return R.ok();
+    }
+
     /**
      * 删除
      */
@@ -95,7 +117,6 @@ public class AttrController {
 
         return R.ok();
     }
-
 
 
 }
