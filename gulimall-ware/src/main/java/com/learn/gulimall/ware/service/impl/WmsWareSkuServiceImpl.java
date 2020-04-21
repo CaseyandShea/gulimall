@@ -8,10 +8,13 @@ import com.learn.gulimall.common.utils.Query;
 import com.learn.gulimall.ware.dao.WmsWareSkuDao;
 import com.learn.gulimall.ware.entity.WmsWareSkuEntity;
 import com.learn.gulimall.ware.service.WmsWareSkuService;
+import com.learn.gulimall.ware.vo.SkuHasStockVo;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Service("wmsWareSkuService")
@@ -34,6 +37,23 @@ public class WmsWareSkuServiceImpl extends ServiceImpl<WmsWareSkuDao, WmsWareSku
         );
 
         return new PageUtils(page);
+    }
+
+    @Override
+    public List<SkuHasStockVo> getSkusHasStock(List<Long> skuIds) {
+
+        List<SkuHasStockVo> collect = skuIds.stream().map(skuId -> {
+            SkuHasStockVo vo = new SkuHasStockVo();
+            //查询当前sku的总库存量
+
+            Long count = baseMapper.getSkuStock(skuId);
+            vo.setSkuId(skuId);
+            vo.setHasStock(count == null ? false : count > 0);
+
+            return vo;
+        }).collect(Collectors.toList());
+
+        return collect;
     }
 
 }

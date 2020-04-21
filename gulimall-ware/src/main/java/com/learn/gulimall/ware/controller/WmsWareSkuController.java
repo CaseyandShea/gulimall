@@ -4,10 +4,12 @@ import com.learn.gulimall.common.utils.PageUtils;
 import com.learn.gulimall.common.utils.R;
 import com.learn.gulimall.ware.entity.WmsWareSkuEntity;
 import com.learn.gulimall.ware.service.WmsWareSkuService;
+import com.learn.gulimall.ware.vo.SkuHasStockVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 
@@ -33,6 +35,14 @@ public class WmsWareSkuController {
         PageUtils page = wmsWareSkuService.queryPage(params);
 
         return R.ok().put("page", page);
+    }
+
+    @PostMapping("/hasstock")
+    public R getSkuHasStock(@RequestBody List<Long> skuIds) {
+        List<SkuHasStockVo> vos = wmsWareSkuService.getSkusHasStock(skuIds);
+        R r = R.ok();
+        r.setData(vos);
+        return r;
     }
 
 

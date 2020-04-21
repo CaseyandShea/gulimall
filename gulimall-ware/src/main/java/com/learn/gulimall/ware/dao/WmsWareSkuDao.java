@@ -3,6 +3,7 @@ package com.learn.gulimall.ware.dao;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.learn.gulimall.ware.entity.WmsWareSkuEntity;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 商品库存
@@ -14,4 +15,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface WmsWareSkuDao extends BaseMapper<WmsWareSkuEntity> {
 
+    Long getSkuStock(@Param("skuId") Long skuId);
 }

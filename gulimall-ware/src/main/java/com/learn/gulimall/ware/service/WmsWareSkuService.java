@@ -3,7 +3,9 @@ package com.learn.gulimall.ware.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.learn.gulimall.common.utils.PageUtils;
 import com.learn.gulimall.ware.entity.WmsWareSkuEntity;
+import com.learn.gulimall.ware.vo.SkuHasStockVo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,5 +18,7 @@ import java.util.Map;
 public interface WmsWareSkuService extends IService<WmsWareSkuEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    List<SkuHasStockVo> getSkusHasStock(List<Long> skuIds);
 }
 
