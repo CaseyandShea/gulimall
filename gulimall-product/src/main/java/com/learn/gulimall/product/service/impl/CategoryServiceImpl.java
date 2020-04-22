@@ -9,6 +9,7 @@ import com.learn.gulimall.product.dao.CategoryDao;
 import com.learn.gulimall.product.entity.CategoryEntity;
 import com.learn.gulimall.product.service.CategoryBrandRelationService;
 import com.learn.gulimall.product.service.CategoryService;
+import com.learn.gulimall.product.vo.Catelog2Vo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -84,6 +85,43 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     public void updateCascade(CategoryEntity category) {
         this.updateById(category);
         categoryBrandRelationService.updateCategory(category.getCatId(), category.getName());
+    }
+
+    @Override
+    public List<CategoryEntity> getLevel1Categorys() {
+        List<CategoryEntity> categoryEntities = baseMapper.selectList(
+                new QueryWrapper<CategoryEntity>().eq("parent_cid", 0)
+        );
+        return categoryEntities;
+    }
+
+    @Override
+    public  Map<String, List<Catelog2Vo>> getCatelogJson() {
+        //1.查出所有一级分类
+        List<CategoryEntity> categoryEntities = listWithTree();
+        //2。封装数据
+        Map<String, List<Catelog2Vo>> stringListMap = categoryEntities.stream().collect(Collectors.toMap(k -> k.getCatId().toString(), v -> {
+
+            List<Catelog2Vo> collect = v.getChildren().stream().map(categoryEntity -> {
+                Catelog2Vo catelog2Vo = new Catelog2Vo();
+                catelog2Vo.setCatalog1Id(v.getCatId().toString());
+                catelog2Vo.setId(categoryEntity.getCatId().toString());
+                catelog2Vo.setName(categoryEntity.getName());
+                List<Catelog2Vo.Catelog3Vo> catelog3Vos = categoryEntity.getChildren().stream().map(ev -> {
+                    Catelog2Vo.Catelog3Vo catelog3Vo = new Catelog2Vo.Catelog3Vo();
+                    catelog3Vo.setCatalog2Id(ev.getParentCid().toString());
+                    catelog3Vo.setId(ev.getCatId().toString());
+                    catelog3Vo.setName(ev.getName());
+                    return catelog3Vo;
+                }).collect(Collectors.toList());
+                catelog2Vo.setCatalog3List(catelog3Vos);
+                return catelog2Vo;
+
+            }).collect(Collectors.toList());
+            return collect;
+        }));
+
+        return stringListMap;
     }
 
 

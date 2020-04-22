@@ -11,6 +11,10 @@ spring:
       discovery:
         server-addr: 127.0.0.1:8848
 
+  thymeleaf:
+    cache: true
+
+
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
 
@@ -25,6 +29,8 @@ mybatis-plus:
       id-type: auto
       logic-delete-value: 1
       logic-not-delete-value: 0
+
+
 
 
 
