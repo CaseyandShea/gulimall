@@ -14,6 +14,18 @@ spring:
   thymeleaf:
     cache: true
 
+  redis:
+    host: 192.168.56.9
+    port: 6379
+
+  cache:
+    type: redis
+    redis:
+      key-prefix: CACHE_
+      use-key-prefix: true
+      cache-null-values: true
+
+#cache-null-values 是否缓存空值 防止缓存穿透  如果指定了前缀就用指定的缓存前缀  没有指定就用缓存空间名字
 
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
