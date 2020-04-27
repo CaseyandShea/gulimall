@@ -42,5 +42,7 @@ public class SearchParam {
 
     private  List<String> attrs;
 
-    private Integer pageNum;//页码
+    private Integer pageNum = 1;//页码
+
+    private String queryString;//查询地址
 }

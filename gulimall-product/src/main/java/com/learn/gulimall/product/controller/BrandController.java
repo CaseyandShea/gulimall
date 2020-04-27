@@ -60,6 +60,17 @@ public class BrandController {
         return R.ok().put("brand", brand);
     }
 
+
+    @GetMapping("/info/{brandId}")
+    // @RequiresPermissions("product:brand:info")
+    public R getBrandsById(@PathVariable("brandId")List<Long>  brandIds) {
+       List<BrandEntity>  brand = brandService.getByIds(brandIds);
+
+        return R.ok().put("brand", brand);
+    }
+
+
+
     /**
      * 保存
      *

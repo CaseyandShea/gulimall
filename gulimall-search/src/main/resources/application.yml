@@ -9,4 +9,4 @@ spring:
   thymeleaf:
     cache: false
 server:
-  port: 12000
+  port: 16000

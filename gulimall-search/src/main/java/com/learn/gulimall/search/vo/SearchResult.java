@@ -3,6 +3,7 @@ package com.learn.gulimall.search.vo;
 import com.learn.gulimall.common.to.es.SkuEsModel;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,6 +11,7 @@ import java.util.List;
  * author = Casey
  * Data = 2020/4/24 12:23 上午
  **/
+@Data
 public class SearchResult {
     private List<SkuEsModel> products; //查询到的商品信息
 
@@ -29,6 +31,16 @@ public class SearchResult {
 
     private List<CatalogVo> catalogs;//所有分类
 
+    //面包屑导航
+    private List<NavVo> navs = new ArrayList<>();
+
+    @Data
+    public static class NavVo{
+
+        private String navName;
+        private String navValue;
+        private String  link;
+    }
 
     /**
      *

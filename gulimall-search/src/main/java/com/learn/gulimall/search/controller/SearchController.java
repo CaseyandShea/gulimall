@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * packageName = com.learn.gulimall.search.controller
  * author = Casey
@@ -25,7 +27,8 @@ public class SearchController {
      * @return
      */
     @GetMapping("/list.html")
-    public String listPage(SearchParam searchParam, Model model){
+    public String listPage(SearchParam searchParam, Model model, HttpServletRequest request){
+        searchParam.setQueryString(request.getQueryString());
         SearchResult result = mallSearchService.search(searchParam);
         return "list";
     }

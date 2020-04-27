@@ -28,7 +28,6 @@ public class GulimallElasticSearchConfig {
 
     /**
      * 给容器中注册
-     *
      * @return
      */
     @Bean
