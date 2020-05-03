@@ -8,6 +8,8 @@ import com.learn.gulimall.common.utils.Query;
 import com.learn.gulimall.product.dao.AttrGroupDao;
 import com.learn.gulimall.product.entity.AttrGroupEntity;
 import com.learn.gulimall.product.service.AttrGroupService;
+import com.learn.gulimall.product.vo.SkuItemVo;
+import com.learn.gulimall.product.vo.SpuItemAttrGroupVo;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -56,6 +58,13 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
                 new QueryWrapper<AttrGroupEntity>().eq("catelog_id", catelogId)
         );
         return attrGroupEntities;
+    }
+
+    @Override
+    public List<SpuItemAttrGroupVo> getAttrGroupWithAttrBySpuId(Long catelogId, Long spuId) {
+        AttrGroupDao baseMapper = this.getBaseMapper();
+        List<SpuItemAttrGroupVo> vos =  baseMapper.getAttrGroupWithAttrsBySpuId(spuId,catelogId);
+        return vos;
     }
 
 }

@@ -12,6 +12,10 @@ spring:
       oss:
         endpoint: oss-cn-beijing.aliyuncs.com
         bucket: education-project
+      sms:
+        host: https://smsmsgs.market.alicloudapi.com
+        path: /sms/
+        appcode: 619e570411294bc380ba50c68f0d604a
 
 
 server:

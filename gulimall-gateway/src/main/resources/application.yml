@@ -48,6 +48,14 @@ spring:
             - RewritePath=/api/(?<segment>.*),/$\{segment}
 
 
+        - id: auth_route
+          uri: lb://gulimall-auth-server
+          predicates:
+            - Path=/api/auth/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+
+
         - id: renren
           uri: lb://renren-fast
           predicates:
@@ -55,20 +63,21 @@ spring:
           filters:
             - RewritePath=/api/(?<segment>.*),/$\{segment}
 
-        - id: gulimall_host_eror_route
-          uri: lb://gulimall-search
-          predicates:
-            - Host=**.search.gmall.com
 
         - id: gulimall_host_search_route
           uri: lb://gulimall-search
           predicates:
           - Host=**.search.caseymall.com
 
+        - id: gulimall_host_search_route
+          uri: lb://gulimall-auth-server
+          predicates:
+            - Host=auth.caseymall.com
+
         - id: gulimall_host_route
           uri: lb://gulimall-product
           predicates:
-          - Host=**.caseymall.com
+          - Host=caseymall.com,item.gulimall.com
 
 
 

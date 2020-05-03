@@ -5,10 +5,8 @@ import com.learn.gulimall.common.utils.R;
 import com.learn.gulimall.common.valid.AddGroup;
 import com.learn.gulimall.common.valid.UpdateGroup;
 import com.learn.gulimall.product.entity.BrandEntity;
-import com.learn.gulimall.product.entity.CategoryBrandRelationEntity;
 import com.learn.gulimall.product.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -61,9 +59,9 @@ public class BrandController {
     }
 
 
-    @GetMapping("/info/{brandId}")
+    @GetMapping("/info/{brandIds}")
     // @RequiresPermissions("product:brand:info")
-    public R getBrandsById(@PathVariable("brandId")List<Long>  brandIds) {
+    public R getBrandsById(@PathVariable("brandIds")List<Long>  brandIds) {
        List<BrandEntity>  brand = brandService.getByIds(brandIds);
 
         return R.ok().put("brand", brand);
